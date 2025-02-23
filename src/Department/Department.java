@@ -61,7 +61,12 @@ public class Department {
     }
 
     public void indexSalaryEmploeeOfDepartment(final double percent) {
-        emploees.values().forEach(value -> value.setSalary((value.getSalary() * percent / 100) + value.getSalary()));
+        if (percent != 0) {
+            emploees.values().forEach(value -> value.setSalary((value.getSalary() * percent / 100) + value.getSalary()));
+        } else if (percent < 0 || percent == 0) {
+            throw new IllegalArgumentException("Процент индексации не может быть нулевым или отрицательным");
+        }
+
     }
 
     public void printAllEmploeesOfDepartment() {
@@ -84,6 +89,11 @@ public class Department {
     }
 
     public Emploee findEmploeeInDepartmentByID(final UUID id) {
-        return emploees.get(id);
+        if (id != null) {
+            return emploees.get(id);
+        } else {
+            throw new NullPointerException("ID не может быть пустым");
+        }
+
     }
 }
